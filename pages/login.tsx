@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import logo from '../assets/logo.png'; // Adjust the path to your logo image as needed
+import logo from '../assets/logo.png'; 
 
 const Login = () => {
   return (
@@ -51,7 +51,7 @@ const Login = () => {
         </div>
         
         {/* Right side of the container for new user information */}
-        <div className="w-full lg:w-1/2 bg-[#122E5D] text-white flex-col items-center justify-center p-8 rounded-b-lg lg:rounded-r-lg lg:rounded-bl-none">
+        <div className="w-full lg:w-1/2 bg-[#122E5D] text-white flex flex-col items-center justify-center p-8 rounded-b-lg lg:rounded-r-lg lg:rounded-bl-none">
           {/* New user heading */}
           <h2 className="text-2xl font-bold mb-2 text-center">New User?</h2>
           
