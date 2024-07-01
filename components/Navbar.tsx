@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import logo from '../assets/logo.png'
+import Link from 'next/link';
+import Image from 'next/image';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   return (
@@ -17,7 +17,7 @@ const Navbar = () => {
           <Link href="/contact" className="text-gray-300 hover:text-white hover:underline">Contact Us</Link>
         </div>
         <div>
-          <Link href="/dashboard">
+          <Link href="/login">
             <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 transition-colors duration-300">
               Dashboard Login
             </button>
@@ -25,7 +25,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
