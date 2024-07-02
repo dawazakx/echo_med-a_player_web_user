@@ -11,6 +11,7 @@ const Navbar = () => {
           <Image src={logo} alt="Logo" width={64} height={64} />
           <div className="text-white text-lg font-bold">Sparrow App</div>
         </div>
+ responsivehome
 
         {/* Navigation Links and Dashboard Login */}
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto justify-center">
@@ -46,10 +47,28 @@ const Navbar = () => {
               </a>
             </Link>
           </div>
+
+        <div className="flex space-x-4">
+          <Link href="/features" className="text-gray-300 hover:text-white hover:underline">Features</Link>
+          <Link href="/subscriptions" className="text-gray-300 hover:text-white hover:underline">Subscriptions</Link>
+          <Link href="/faqs" className="text-gray-300 hover:text-white hover:underline">FAQs</Link>
+          <Link href="/contact" className="text-gray-300 hover:text-white hover:underline">Contact Us</Link>
+        </div>
+        <div>
+          <Link href="/login">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 transition-colors duration-300">
+              Dashboard Login
+            </button>
+          </Link>
+ main
         </div>
       </div>
     </nav>
   );
+responsivehome
 };
+
+}
+main
 
 export default Navbar;
