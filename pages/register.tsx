@@ -4,6 +4,8 @@ import Link from 'next/link';
 const Register: React.FC = () => {
   // State to manage form data
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -43,8 +45,36 @@ const Register: React.FC = () => {
         {/* Right Section */}
         <div className="w-full md:w-1/2 p-8 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold mb-4 text-gray-800">NEW USER</h2>
-          <p className="mb-4 text-gray-600 text-center">Enter your email and password in order to register:</p>
+          <p className="mb-4 text-gray-600 text-center">Enter your details to register:</p>
           <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
+            <div>
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                First Name
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                Last Name
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email
@@ -89,7 +119,7 @@ const Register: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 transition-colors duration-300"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 transition-colors duration-300"
             >
               Sign Up
             </button>
