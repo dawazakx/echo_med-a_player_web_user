@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 const Register: React.FC = () => {
-  // State to manage form data
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -11,7 +10,19 @@ const Register: React.FC = () => {
     confirmPassword: '',
   });
 
-  // Handle input changes
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -19,11 +30,51 @@ const Register: React.FC = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your registration logic here
-    console.log(formData);
+    let valid = true;
+    let newErrors = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    };
+
+    if (!formData.firstName) {
+      newErrors.firstName = 'First Name is required';
+      valid = false;
+    }
+
+    if (!formData.lastName) {
+      newErrors.lastName = 'Last Name is required';
+      valid = false;
+    }
+
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+      valid = false;
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Email is not valid';
+      valid = false;
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+      valid = false;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    if (valid) {
+      // Handle registration
+      console.log('Registration successful', formData);
+    }
   };
 
   return (
@@ -44,7 +95,13 @@ const Register: React.FC = () => {
 
         {/* Right Section */}
         <div className="w-full md:w-1/2 p-8 flex flex-col items-center justify-center">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">NEW USER</h2>
+          <div className="flex justify-between w-full max-w-sm mb-4">
+            {/* Back arrow */}
+            <button onClick={() => window.history.back()} className="text-[#0E214F] text-xl">
+              ←
+            </button>
+            <h2 className="text-2xl font-bold text-gray-800">NEW USER</h2>
+          </div>
           <p className="mb-4 text-gray-600 text-center">Enter your details to register:</p>
           <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
             <div>
@@ -58,8 +115,9 @@ const Register: React.FC = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               />
+              {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
             </div>
             <div>
               <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
@@ -72,8 +130,9 @@ const Register: React.FC = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               />
+              {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -86,8 +145,9 @@ const Register: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -100,8 +160,9 @@ const Register: React.FC = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               />
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
@@ -114,8 +175,9 @@ const Register: React.FC = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               />
+              {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
             </div>
             <button
               type="submit"
