@@ -4,7 +4,7 @@ const Hero = () => {
       {/* Main Heading */}
       <h1 className="text-3xl sm:text-4xl font-bold mb-4">Welcome to Sparrow App</h1>
       {/* Subheading */}
-      <p className="text-base sm:text-lg mb-2">The best Media app available on mobile and TV.</p>
+      
       <p className="text-base sm:text-lg mb-6">Stream your favorite channels live, anytime, anywhere.</p>
 
       {/* Buttons Section */}
