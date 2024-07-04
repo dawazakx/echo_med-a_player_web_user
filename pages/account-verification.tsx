@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 
 // Define props and state for the component
-const AccountVerification: React.FC = () => {
+const AccountVerification: FC = () => {
   // State for OTP input and error message
   const [otp, setOtp] = useState(['', '', '', '']);
   const [error, setError] = useState('');
