@@ -16,11 +16,10 @@ const AdminLogin: React.FC = () => {
       <div className="absolute top-4 left-4">
         <img src="/assets/logo.png" alt="Logo" className="w-24" />
       </div>
-      <div className="bg-gray-100 p-8 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"> 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Admin Login</h2>
-        {/* Instruction */}
-        <p className="mb-6 text-center text-gray-600">Enter your email and password to sign in!</p>
+        <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">Admin Login</h2> 
+        
         {/* Formik Form */}
         <Formik
           initialValues={{ email: '', password: '' }}
