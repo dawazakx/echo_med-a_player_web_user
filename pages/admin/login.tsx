@@ -13,7 +13,7 @@ const AdminLogin: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="absolute top-4 left-4">
+      <div className="absolute top-4">
         <img src="/assets/logo.png" alt="Logo" className="w-24" />
       </div>
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"> 
