@@ -1,125 +1,130 @@
-// old login
+import React from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import logo from '../assets/logo.png';
+const UserLogin: React.FC = () => {
+  // Validation schema for the form fields using Yup
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string()
+      .required('Password is required'),
+  });
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({ email: '', password: '' });
-
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let valid = true;
-    let newErrors = { email: '', password: '' };
-
-    if (!email) {
-      newErrors.email = 'Email is required';
-      valid = false;
-    } else if (!validateEmail(email)) {
-      newErrors.email = 'Email is not valid';
-      valid = false;
-    }
-
-    if (!password) {
-      newErrors.password = 'Password is required';
-      valid = false;
-    }
-
-    setErrors(newErrors);
-
-    if (valid) {
-      // Handle login
-      console.log('Login successful');
+  // Function to handle form submission
+  const handleSubmit = async (values: { email: string; password: string }) => {
+    try {
+      // Send a POST request to the login endpoint
+      const response = await axios.post('https://shaky-work-tedious-island-beta.pipeops.app/api/v1/admin/login', values);
+      if (response.status === 201) {
+        // Store the returned payload in cookies if login is successful
+        Cookies.set('user', response.data);
+        alert('Login successful!');
+      } else {
+        // Display an error message if login is not successful
+        alert('Login failed!');
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      alert('An error occurred. Please try again.');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0E214F] px-4 sm:px-0">
-      <div className="bg-white rounded-lg shadow-lg flex flex-col lg:flex-row max-w-4xl w-full">
-        {/* Left side of the container for the login form */}
-        <div className="w-full lg:w-1/2 p-8">
-          <div className="flex justify-between mb-8">
-            {/* Logo image */}
-            <Link href="/" legacyBehavior>
-              <a>
-                <Image src={logo} alt="Logo" width={96} height={96} />
-              </a>
-            </Link>
-            {/* Back arrow */}
-            <button onClick={() => window.history.back()} className="text-[#0E214F] text-xl">
-              ←
-            </button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      {/* Container for the login form and side panel */}
+      <div className="flex w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
+        
+        {/* Left side - login form */}
+        <div className="w-1/2 p-8">
+          <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">Sign in to account</h2>
+          <p className="text-center text-gray-600 mb-6">Provide your credentials to sign in.</p>
+
+          {/* Google Sign-in Button */}
+          <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
+            <img src="/assets/google-icon.svg" alt="Google Icon" className="w-5 h-5 mr-2" />
+            Continue with Google
+          </button>
+
+          {/* Divider with 'or' text */}
+          <div className="flex items-center justify-between mb-4">
+            <hr className="w-full border-gray-300" />
+            <span className="px-3 text-gray-500">or</span>
+            <hr className="w-full border-gray-300" />
           </div>
 
-          {/* Login form */}
-          <form onSubmit={handleSubmit}>
-            {/* Email input field */}
-            <div className="mb-4">
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black"
-              />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-            </div>
+          {/* Formik form for login */}
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched, isSubmitting }) => (
+              <Form className="space-y-4">
+                {/* Email Input */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+                  <Field
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Ex. jane@example.com"
+                    className={`mt-1 block w-full border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
+                      errors.email && touched.email ? 'border-red-500' : 'border-gray-300'
+                    } text-black`}
+                  />
+                  <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
+                </div>
+                {/* Password Input */}
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                  <Field
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    className={`mt-1 block w-full border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
+                      errors.password && touched.password ? 'border-red-500' : 'border-gray-300'
+                    } text-black`}
+                  />
+                  <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
+                </div>
+                {/* Sign-in Button */}
+                <button
+                  type="submit"
+                  className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Loading...' : 'Sign in'}
+                </button>
+              </Form>
+            )}
+          </Formik>
 
-            {/* Password input field */}
-            <div className="mb-4">
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black"
-              />
-              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-            </div>
-
-            {/* Forgot Password link */}
-            <div className="mb-4 text-right">
-              <a href="#" className="text-blue-600">Forgot Password?</a>
-            </div>
-
-            {/* Login button */}
-            <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg">
-              Login
-            </button>
-
-            {/* Sign up link for users without an account */}
-            <div className="mt-4 text-center text-black">
-              Don't have an account? <Link href="/register" legacyBehavior><a className="text-blue-600">Sign Up</a></Link>
-            </div>
-          </form>
+          {/* Additional Links */}
+          <div className="mt-4 text-center">
+            <a href="#" className="text-sm text-blue-600 hover:underline">Forgot your password?</a>
+          </div>
+          <div className="mt-4 text-center">
+            <span className="text-sm text-gray-600">Don't have an account? </span>
+            <a href="#" className="text-sm text-blue-600 hover:underline">Create an account</a>
+          </div>
         </div>
 
-        {/* Right side of the container for new user information */}
-        <div className="w-full lg:w-1/2 bg-[#122E5D] text-white flex flex-col items-center justify-center p-8 rounded-b-lg lg:rounded-r-lg lg:rounded-bl-none">
-          {/* New user heading */}
-          <h2 className="text-2xl font-bold mb-2 text-center">New User?</h2>
-
-          {/* Information for new users */}
-          <p className="mb-6 text-center">In order to buy a premium subscription you will have to sign up first!</p>
-
-          {/* Sign up button */}
-          <Link href="/register" legacyBehavior>
-            <a className="bg-transparent border border-white text-white py-2 px-6 rounded-full hover:bg-white hover:text-[#0E214F] transition-colors duration-300 block mx-auto">
-              SIGN UP
-            </a>
-          </Link>
+        {/* Right side - additional information */}
+        <div className="w-1/2 bg-gray-100 flex items-center justify-center">
+          <div className="text-center">
+            <img src="/assets/logo.png" alt="Eco Media Player Logo" className="w-32 h-32 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-800">Eco Media Player</h3>
+            <p className="text-gray-600 mt-2">watch movies and chill, you have got your cinema in your device</p>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Login;
+export default UserLogin;
