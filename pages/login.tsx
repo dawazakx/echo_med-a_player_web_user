@@ -45,7 +45,7 @@ const UserLogin: React.FC = () => {
 
           {/* Google Sign-in Button */}
           <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
-            <img src="/assets/google-icon.svg" alt="Google Icon" className="w-5 h-5 mr-2" />
+            <img src="/assets/google-logo.png" alt="Google Icon" className="w-6 h-5 mr-2" />
             Continue with Google
           </button>
 
@@ -117,8 +117,8 @@ const UserLogin: React.FC = () => {
         {/* Right side - additional information */}
         <div className="w-1/2 bg-gray-100 flex items-center justify-center">
           <div className="text-center">
-            <img src="/assets/logo.png" alt="Eco Media Player Logo" className="w-32 h-32 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-gray-800">Eco Media Player</h3>
+            <img src="/assets/logo.png" alt="Eco Media Player Logo" className="w-40 h-40 mx-auto mb-4" />  {/* Adjust size as needed */}
+            <h3 className="bg-[#0E214F] text-white text-sm px-2 py-1 mt-2 inline-block">echo media player</h3>  {/* Style text */}
             <p className="text-gray-600 mt-2">watch movies and chill, you have got your cinema in your device</p>
           </div>
         </div>
