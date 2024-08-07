@@ -34,18 +34,18 @@ const UserLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       {/* Container for the login form and side panel */}
-      <div className="flex w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="flex flex-col md:flex-row w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
         
         {/* Left side - login form */}
-        <div className="w-1/2 p-8">
+        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">Sign in to account</h2>
           <p className="text-center text-gray-600 mb-6">Provide your credentials to sign in.</p>
 
           {/* Google Sign-in Button */}
           <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
-            <img src="/assets/google-logo.png" alt="Google Icon" className="w-6 h-5 mr-2" />
+            <img src="/assets/google-logo.png" alt="Google Icon" className="w-6 h-4 mr-2" />
             Continue with Google
           </button>
 
@@ -115,11 +115,11 @@ const UserLogin: React.FC = () => {
         </div>
 
         {/* Right side - additional information */}
-        <div className="w-1/2 bg-gray-100 flex items-center justify-center">
+        <div className="w-full md:w-1/2 bg-[#F7F9FC] flex items-center justify-center p-4">
           <div className="text-center">
             <img src="/assets/logo.png" alt="Eco Media Player Logo" className="w-40 h-40 mx-auto mb-4" />  {/* Adjust size as needed */}
-            <h3 className="bg-[#0E214F] text-white text-sm px-2 py-1 mt-2 inline-block">echo media player</h3>  {/* Style text */}
-            <p className="text-gray-600 mt-2">watch movies and chill, you have got your cinema in your device</p>
+            <h3 className="bg-[#0E214F] text-white text-sm px-2 py-1 mt-2 inline-block">Eco Media Player</h3>  {/* Style text */}
+            <p className="text-gray-600 mt-12">watch movies and chill, you have got your cinema in your device</p> {/* Adjusted margin-top */}
           </div>
         </div>
       </div>
