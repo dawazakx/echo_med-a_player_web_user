@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import RightSideContent from '../components/RightSideContent'; // Import the reusable component
 
 const UserLogin: React.FC = () => {
   // Validation schema for the form fields using Yup
@@ -17,46 +18,38 @@ const UserLogin: React.FC = () => {
   // Function to handle form submission
   const handleSubmit = async (values: { email: string; password: string }) => {
     try {
-      // Send a POST request to the login endpoint
       const response = await axios.post('https://shaky-work-tedious-island-beta.pipeops.app/api/v1/admin/login', values);
       if (response.status === 201) {
-        // Store the returned payload in cookies if login is successful
         Cookies.set('user', response.data);
         alert('Login successful!');
       } else {
-        // Display an error message if login is not successful
         alert('Login failed!');
       }
     } catch (error) {
-      // Handle any errors that occur during the request
       alert('An error occurred. Please try again.');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      {/* Container for the login form and side panel */}
-      <div className="flex flex-col md:flex-row w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
-        
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+      {/* Main content area */}
+      <div className="flex w-full h-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left side - login form */}
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">Sign in to account</h2>
           <p className="text-center text-gray-600 mb-6">Provide your credentials to sign in.</p>
 
-          {/* Google Sign-in Button */}
           <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
             <img src="/assets/google-logo.png" alt="Google Icon" className="w-6 h-4 mr-2" />
             Continue with Google
           </button>
 
-          {/* Divider with 'or' text */}
           <div className="flex items-center justify-between mb-4">
             <hr className="w-full border-gray-300" />
             <span className="px-3 text-gray-500">or</span>
             <hr className="w-full border-gray-300" />
           </div>
 
-          {/* Formik form for login */}
           <Formik
             initialValues={{ email: '', password: '' }}
             validationSchema={validationSchema}
@@ -64,7 +57,6 @@ const UserLogin: React.FC = () => {
           >
             {({ errors, touched, isSubmitting }) => (
               <Form className="space-y-4">
-                {/* Email Input */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
                   <Field
@@ -78,7 +70,6 @@ const UserLogin: React.FC = () => {
                   />
                   <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
-                {/* Password Input */}
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                   <Field
@@ -92,7 +83,6 @@ const UserLogin: React.FC = () => {
                   />
                   <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
-                {/* Sign-in Button */}
                 <button
                   type="submit"
                   className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
@@ -104,7 +94,6 @@ const UserLogin: React.FC = () => {
             )}
           </Formik>
 
-          {/* Additional Links */}
           <div className="mt-4 text-center">
             <a href="#" className="text-sm text-blue-600 hover:underline">Forgot your password?</a>
           </div>
@@ -115,13 +104,7 @@ const UserLogin: React.FC = () => {
         </div>
 
         {/* Right side - additional information */}
-        <div className="w-full md:w-1/2 bg-[#F7F9FC] flex items-center justify-center p-4">
-          <div className="text-center">
-            <img src="/assets/logo.png" alt="Eco Media Player Logo" className="w-40 h-40 mx-auto mb-4" />  {/* Adjust size as needed */}
-            <h3 className="bg-[#0E214F] text-white text-sm px-2 py-1 mt-2 inline-block">Eco Media Player</h3>  {/* Style text */}
-            <p className="text-gray-600 mt-12">watch movies and chill, you have got your cinema in your device</p> {/* Adjusted margin-top */}
-          </div>
-        </div>
+        <RightSideContent />
       </div>
     </div>
   );
