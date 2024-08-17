@@ -36,7 +36,7 @@ const UserLogin: React.FC = () => {
       <div className="flex w-full h-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left side - login form */}
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">Sign in to account</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center mb-4 font-inter">Sign in to account</h2>
           <p className="text-center text-gray-600 mb-6">Provide your credentials to sign in.</p>
 
           <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
