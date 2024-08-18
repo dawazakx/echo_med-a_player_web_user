@@ -3,7 +3,9 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import RightSideContent from '../components/RightSideContent'; // Import the reusable component
+import RightSideContent from '../components/RightSideContent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const UserLogin: React.FC = () => {
   // Validation schema for the form fields using Yup
@@ -31,16 +33,20 @@ const UserLogin: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen w-screen flex items-center justify-center bg-gray-100 p-4">
       {/* Main content area */}
-      <div className="flex w-full h-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="flex flex-col md:flex-row w-full max-w-6xl bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left side - login form */}
-        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-4 font-inter">Sign in to account</h2>
-          <p className="text-center text-gray-600 mb-6">Provide your credentials to sign in.</p>
+        <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 text-center mb-4 font-inter">
+            Sign in to account
+          </h2>
+          <p className="text-center text-gray-600 mb-6 font-poppins text-xs md:text-sm">
+            Provide your credentials to sign in.
+          </p>
 
           <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
-            <img src="/assets/google-logo.png" alt="Google Icon" className="w-6 h-4 mr-2" />
+            <FontAwesomeIcon icon={faGoogle} className="mr-2 text-lg md:text-xl" />
             Continue with Google
           </button>
 
@@ -58,7 +64,7 @@ const UserLogin: React.FC = () => {
             {({ errors, touched, isSubmitting }) => (
               <Form className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+                  <label htmlFor="email" className="block text-xs md:text-sm font-medium text-gray-700">Email address</label>
                   <Field
                     type="email"
                     id="email"
@@ -68,10 +74,10 @@ const UserLogin: React.FC = () => {
                       errors.email && touched.email ? 'border-red-500' : 'border-gray-300'
                     } text-black`}
                   />
-                  <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
+                  <ErrorMessage name="email" component="div" className="text-red-500 text-xs mt-1" />
                 </div>
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                  <label htmlFor="password" className="block text-xs md:text-sm font-medium text-gray-700">Password</label>
                   <Field
                     type="password"
                     id="password"
@@ -81,7 +87,7 @@ const UserLogin: React.FC = () => {
                       errors.password && touched.password ? 'border-red-500' : 'border-gray-300'
                     } text-black`}
                   />
-                  <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
+                  <ErrorMessage name="password" component="div" className="text-red-500 text-xs mt-1" />
                 </div>
                 <button
                   type="submit"
@@ -95,11 +101,11 @@ const UserLogin: React.FC = () => {
           </Formik>
 
           <div className="mt-4 text-center">
-            <a href="#" className="text-sm text-blue-600 hover:underline">Forgot your password?</a>
+            <a href="#" className="text-xs md:text-sm text-blue-600 hover:underline">Forgot your password?</a>
           </div>
           <div className="mt-4 text-center">
-            <span className="text-sm text-gray-600">Don't have an account? </span>
-            <a href="#" className="text-sm text-blue-600 hover:underline">Create an account</a>
+            <span className="text-xs md:text-sm text-gray-600">Don't have an account? </span>
+            <a href="#" className="text-xs md:text-sm text-blue-600 hover:underline">Create an account</a>
           </div>
         </div>
 
