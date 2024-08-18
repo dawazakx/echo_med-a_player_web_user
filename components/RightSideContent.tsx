@@ -17,7 +17,7 @@ const RightSideContent: React.FC = () => {
         </div>
         {/* Description Text */}
         <p className="text-gray-600 mt-8 md:mt-12 font-poppins text-xs md:text-sm text-center">
-          watch movies and chill, <br /> you’ve got your cinema in your pocket
+          watch movies and chill, <br /> you’ve got your cinema in your device
         </p>
       </div>
     </div>
