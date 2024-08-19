@@ -2,7 +2,7 @@ import React from 'react';
 
 const RightSideContent: React.FC = () => {
   return (
-    <div className="w-full md:w-1/2 bg-[#F7F9FC] flex items-center justify-center p-4">
+    <div className="w-full md:w-1/2 h-[90vh] bg-[#F7F9FC] flex items-center justify-center p-4">
       <div className="text-center">
         {/* Container for Logo and Company Name */}
         <div className="bg-gray-200 p-6 md:p-8 rounded-lg mb-4 flex flex-col items-center justify-center">

@@ -4,17 +4,14 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import RightSideContent from '../components/RightSideContent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import FormHeader from '../components/FormHeader';
+import GoogleButton from '../components/GoogleButton';
 
 const UserLogin: React.FC = () => {
   // Validation schema for the form fields using Yup
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    password: Yup.string()
-      .required('Password is required'),
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+    password: Yup.string().required('Password is required'),
   });
 
   // Function to handle form submission
@@ -34,21 +31,11 @@ const UserLogin: React.FC = () => {
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-gray-100 p-4">
-      {/* Main content area */}
       <div className="flex flex-col md:flex-row w-full max-w-6xl bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left side - login form */}
         <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800 text-center mb-4 font-inter">
-            Sign in to account
-          </h2>
-          <p className="text-center text-gray-600 mb-6 font-poppins text-xs md:text-sm">
-            Provide your credentials to sign in.
-          </p>
-
-          <button className="w-full flex items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-300 transition-colors duration-300">
-            <FontAwesomeIcon icon={faGoogle} className="mr-2 text-lg md:text-xl" />
-            Continue with Google
-          </button>
+          <FormHeader title="Sign in to account" description="Provide your credentials to sign in." />
+          <GoogleButton />
 
           <div className="flex items-center justify-between mb-4">
             <hr className="w-full border-gray-300" />
