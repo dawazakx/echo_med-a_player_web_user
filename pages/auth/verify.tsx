@@ -36,7 +36,6 @@ const AccountVerification: FC = () => {
         otp: values.otp,
       };
 
-      console.log(values.otp, "otp");
       const res = await VerifyOTP(payload);
       toast.success(res.message);
 

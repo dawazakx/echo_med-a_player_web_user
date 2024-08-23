@@ -32,7 +32,6 @@ const UserRegistration: React.FC = () => {
       const { confirmPassword, ...rest } = values;
 
       const response = await Register(rest);
-      console.log(response);
 
       const { email } = values;
 
