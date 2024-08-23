@@ -5,6 +5,7 @@ import { Register } from "@/redux/services/auth.service";
 import { signupValidationSchema } from "@/utils/yup.validation";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useToast } from "@/components/ui/use-toast";
 
 const UserRegistration: React.FC = () => {
   // show password toggle
@@ -13,7 +14,7 @@ const UserRegistration: React.FC = () => {
 
   const router = useRouter();
 
-  // const { toast } = useToast();
+  const { toast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,34 +40,34 @@ const UserRegistration: React.FC = () => {
 
       sessionStorage.setItem("signupEmail", email);
 
-      // toast(
-      //   {
-      //     // title: "Registration Status",
-      //     description: (
-      //       <div className="flex gap-2 items-center text-lg">
-      //         <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
-      //         {response.message}
-      //       </div>
-      //     ),
-      //   },
-      //   "success"
-      // );
+      toast(
+        {
+          // title: "Registration Status",
+          description: (
+            <div className="flex gap-2 items-center text-lg">
+              <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
+              {response.message}
+            </div>
+          ),
+        },
+        "success"
+      );
       router.push("/auth/verify");
     } catch (error: any) {
       setIsLoading(false);
 
-      // toast(
-      //   {
-      //     // title: "Message: Sign Up",
-      //     description: (
-      //       <div className="flex gap-2 items-center text-lg">
-      //         <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
-      //         <p className="text-sm">{`${error?.response?.data?.message}`}</p>
-      //       </div>
-      //     ),
-      //   },
-      //   "error"
-      // );
+      toast(
+        {
+          // title: "Message: Sign Up",
+          description: (
+            <div className="flex gap-2 items-center text-lg">
+              <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
+              <p className="text-sm">{`${error?.response?.data?.message}`}</p>
+            </div>
+          ),
+        },
+        "error"
+      );
     }
     setIsLoading(false);
     setSubmitting(false);

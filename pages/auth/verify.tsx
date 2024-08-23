@@ -2,71 +2,73 @@ import React, { useState, FC } from "react";
 import { AlertOctagonIcon, CheckCircleIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { ResendOTP, VerifyOTP } from "@/redux/services/auth.service";
+import { useToast } from "@/components/ui/use-toast";
+import * as Yup from "yup";
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/inputOtp";
+import { Formik, Form, FormikHelpers, FormikProps } from "formik";
+
+interface FormValues {
+  otp: string;
+}
 
 const AccountVerification: FC = () => {
-  // State for OTP input and error message
-  const [otp, setOtp] = useState(["", "", "", "", ""]); // 5 boxes for OTP
-  const [error, setError] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  // const { toast } = useToast();
+  const { toast } = useToast();
 
-  // Handle input change for each OTP digit
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const value = e.target.value;
-    // Validate input format (numeric only)
-    if (/^[0-9]$/.test(value) || value === "") {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-      setError("");
-    }
+  const initialValues: FormValues = {
+    otp: "",
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const validationSchema = Yup.object({
+    otp: Yup.string()
+      .matches(/^[0-9a-zA-Z]{4}$/, "OTP must be exactly 4 characters")
+      .required("OTP is required"),
+  });
+
+  const handleSubmit = async (values: FormValues) => {
+    // e.preventDefault();
     try {
       setIsLoading(true);
       const email = sessionStorage.getItem("signupEmail");
       const payload = {
         email: email!,
-        otp: otp.join(""),
+        otp: values.otp,
       };
 
-      console.log(otp, "otp");
+      console.log(values.otp, "otp");
       const res = await VerifyOTP(payload);
-      // toast(
-      //   {
-      //     title: "OTP Verification",
-      //     description: (
-      //       <div className="flex gap-2 items-center text-lg">
-      //         <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
-      //         {res.message}
-      //       </div>
-      //     ),
-      //   },
-      //   "success"
-      // );
+      toast(
+        {
+          title: "OTP Verification",
+          description: (
+            <div className="flex gap-2 items-center text-lg">
+              <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
+              {res.message}
+            </div>
+          ),
+        },
+        "success"
+      );
       router.push("/auth/login");
     } catch (error: any) {
       setIsLoading(false);
-      // toast(
-      //   {
-      //     title: "OTP Verification",
-      //     description: (
-      //       <div className="flex gap-2 items-center text-lg">
-      //         <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
-      //         {error?.response?.data?.message}
-      //       </div>
-      //     ),
-      //   },
-      //   "error"
-      // );
+      toast(
+        {
+          title: "OTP Verification",
+          description: (
+            <div className="flex gap-2 items-center text-lg">
+              <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
+              {error?.response?.data?.message}
+            </div>
+          ),
+        },
+        "error"
+      );
       return;
-      // Handle error response here, if needed
     }
   };
 
@@ -82,34 +84,34 @@ const AccountVerification: FC = () => {
       const res = await ResendOTP(payload);
       console.log("resp:", res);
 
-      //  toast(
-      //    {
-      //      title: "Reset",
-      //      description: (
-      //        <div className="flex gap-2 items-center text-lg">
-      //          <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
-      //          {res.message}
-      //        </div>
-      //      ),
-      //    },
-      //    "success"
-      //  );
+      toast(
+        {
+          title: "Reset",
+          description: (
+            <div className="flex gap-2 items-center text-lg">
+              <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
+              {res.message}
+            </div>
+          ),
+        },
+        "success"
+      );
 
       // setIsUser(true);
     } catch (error: any) {
       setIsLoading(false);
-      //  toast(
-      //    {
-      //      title: "OTP Verification",
-      //      description: (
-      //        <div className="flex gap-2 items-center text-lg">
-      //          <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
-      //          {error?.response?.data?.message}
-      //        </div>
-      //      ),
-      //    },
-      //    "error"
-      //  );
+      toast(
+        {
+          title: "OTP Verification",
+          description: (
+            <div className="flex gap-2 items-center text-lg">
+              <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
+              {error?.response?.data?.message}
+            </div>
+          ),
+        },
+        "error"
+      );
     }
   };
 
@@ -139,41 +141,57 @@ const AccountVerification: FC = () => {
         </p>
 
         {/* OTP form */}
-        <form onSubmit={handleSubmit}>
-          <div className="flex justify-center space-x-2 mb-4">
-            {/* OTP input fields */}
-            {otp.map((_, index) => (
-              <input
-                key={index}
-                type="text"
-                maxLength={1}
-                value={otp[index]}
-                onChange={(e) => handleChange(e, index)}
-                className="w-12 h-12 text-center border border-gray-300 rounded-lg text-black text-lg"
-              />
-            ))}
-          </div>
-          {/* Error message */}
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          {/* Resend link */}
-          <p className="text-sm text-gray-600 mb-4">
-            Didn’t receive code?{" "}
-            <button
-              type="button"
-              onClick={handleResend}
-              className="text-blue-600 hover:underline"
-            >
-              Resend again
-            </button>
-          </p>
-          {/* Submit button */}
-          <button
-            type="submit"
-            className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-          >
-            {isLoading ? "Loading.." : "Confirm"}
-          </button>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ setFieldValue, errors, touched }: FormikProps<FormValues>) => (
+            <Form className="w-full">
+              <div className="grid place-items-center">
+                <InputOTP
+                  maxLength={4}
+                  pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                  onChange={(value: string) => setFieldValue("otp", value)}
+                >
+                  <InputOTPGroup>
+                    {[...Array(4)].map((_, index) => (
+                      <InputOTPSlot
+                        key={index}
+                        index={index}
+                        error={!!(touched.otp && errors.otp)}
+                      />
+                    ))}
+                  </InputOTPGroup>
+                </InputOTP>
+              </div>
+
+              {errors.otp && touched.otp && (
+                <div className="text-red-500 text-sm mt-2">{errors.otp}</div>
+              )}
+              <div className="text-center w-full md:mt-4 mt-8">
+                <p className="text-sm text-gray-600 mb-4">
+                  Didn’t receive code?{" "}
+                  <button
+                    type="button"
+                    onClick={handleResend}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Resend again
+                  </button>
+                </p>
+              </div>
+
+              {/* Submit button */}
+              <button
+                type="submit"
+                className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+              >
+                {isLoading ? "Loading.." : "Confirm"}
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
