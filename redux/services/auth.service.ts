@@ -15,7 +15,7 @@ export const Register = async (payload: UserTypes) => {
   }
 };
 
-export const LoginUser = async (payload: { emailOrUsername: string; password: string }) => {
+export const LoginUser = async (payload: { email: string; password: string }) => {
   try {
     const url = `${baseURL}/api/v1/user/login`;
     const response = await axios.post(url, payload);
