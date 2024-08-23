@@ -38,6 +38,7 @@
     "input-otp": "^1.2.4",
     "lucide-react": "^0.429.0",
     "postcss": "^8",
+    "react-toastify": "^10.0.5",
     "store": "^2.0.12",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "^3",

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { AlertOctagonIcon, CheckCircleIcon, ChevronLeft, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { Register } from "@/redux/services/auth.service";
 import { signupValidationSchema } from "@/utils/yup.validation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "react-toastify";
 
 const UserRegistration: React.FC = () => {
   // show password toggle
@@ -13,8 +13,6 @@ const UserRegistration: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
-
-  const { toast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,34 +38,13 @@ const UserRegistration: React.FC = () => {
 
       sessionStorage.setItem("signupEmail", email);
 
-      toast(
-        {
-          // title: "Registration Status",
-          description: (
-            <div className="flex gap-2 items-center text-lg">
-              <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
-              {response.message}
-            </div>
-          ),
-        },
-        "success"
-      );
+      toast.success(response.message);
+
       router.push("/auth/verify");
     } catch (error: any) {
       setIsLoading(false);
 
-      toast(
-        {
-          // title: "Message: Sign Up",
-          description: (
-            <div className="flex gap-2 items-center text-lg">
-              <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
-              <p className="text-sm">{`${error?.response?.data?.message}`}</p>
-            </div>
-          ),
-        },
-        "error"
-      );
+      toast.error(error?.response.data?.message);
     }
     setIsLoading(false);
     setSubmitting(false);

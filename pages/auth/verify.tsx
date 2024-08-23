@@ -1,12 +1,11 @@
 import React, { useState, FC } from "react";
-import { AlertOctagonIcon, CheckCircleIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { ResendOTP, VerifyOTP } from "@/redux/services/auth.service";
-import { useToast } from "@/components/ui/use-toast";
 import * as Yup from "yup";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/inputOtp";
 import { Formik, Form, FormikHelpers, FormikProps } from "formik";
+import { toast } from "react-toastify";
 
 interface FormValues {
   otp: string;
@@ -16,8 +15,6 @@ const AccountVerification: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-
-  const { toast } = useToast();
 
   const initialValues: FormValues = {
     otp: "",
@@ -41,33 +38,13 @@ const AccountVerification: FC = () => {
 
       console.log(values.otp, "otp");
       const res = await VerifyOTP(payload);
-      toast(
-        {
-          title: "OTP Verification",
-          description: (
-            <div className="flex gap-2 items-center text-lg">
-              <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
-              {res.message}
-            </div>
-          ),
-        },
-        "success"
-      );
+      toast.success(res.message);
+
       router.push("/auth/login");
     } catch (error: any) {
       setIsLoading(false);
-      toast(
-        {
-          title: "OTP Verification",
-          description: (
-            <div className="flex gap-2 items-center text-lg">
-              <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
-              {error?.response?.data?.message}
-            </div>
-          ),
-        },
-        "error"
-      );
+      toast.error(error?.response?.data?.message);
+
       return;
     }
   };
@@ -84,34 +61,10 @@ const AccountVerification: FC = () => {
       const res = await ResendOTP(payload);
       console.log("resp:", res);
 
-      toast(
-        {
-          title: "Reset",
-          description: (
-            <div className="flex gap-2 items-center text-lg">
-              <CheckCircleIcon className="w-4 h-4 text-[#166534] font-bold" />
-              {res.message}
-            </div>
-          ),
-        },
-        "success"
-      );
-
-      // setIsUser(true);
+      toast.success(res.message);
     } catch (error: any) {
       setIsLoading(false);
-      toast(
-        {
-          title: "OTP Verification",
-          description: (
-            <div className="flex gap-2 items-center text-lg">
-              <AlertOctagonIcon className="w-4 h-4 text-[#991B1B] font-bold" />
-              {error?.response?.data?.message}
-            </div>
-          ),
-        },
-        "error"
-      );
+      toast.error(error?.response?.data?.message);
     }
   };
 

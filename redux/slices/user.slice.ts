@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import store from "store";
 
-import { ck_logoutUser } from "@/cookies/logoutUser";
-import { ck_loginUser } from "@/cookies/loginUser";
 import { loggedUser } from "@/types/Auth.types";
 
 const loadCartFromLocalStorage = () => {
@@ -36,8 +34,6 @@ const userSlice = createSlice({
     clearUser: (state: UserState) => {
       state.user = null;
       store.remove("user");
-
-      ck_logoutUser();
     },
   },
 });
@@ -45,8 +41,6 @@ const userSlice = createSlice({
 const saveUserToLocalStorage = (user: []) => {
   // console.log("user", user);
   store.set("user", JSON.stringify(user));
-
-  ck_loginUser(JSON.stringify(user));
 };
 
 const { actions, reducer: UserReducer } = userSlice;

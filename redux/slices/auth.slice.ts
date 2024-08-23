@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import store from "store";
-import { ck_logoutUser } from "@/cookies/logoutUser";
 import { User } from "@/types/Auth.types";
 
 type AuthState = {
@@ -29,8 +28,6 @@ const authSlice = createSlice({
       //
       store.remove("user");
       store.remove("atk");
-
-      ck_logoutUser();
     },
   },
 });
