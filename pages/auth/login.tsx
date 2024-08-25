@@ -1,38 +1,41 @@
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Eye, EyeOff } from "lucide-react";
-import { Login } from "@/redux/services/auth.service";
+import { LoginUser } from "@/redux/services/auth.service";
 import { loginValidationSchema } from "@/utils/yup.validation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 const UserLogin: React.FC = () => {
-  // show password toggle
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  // handle toggle
+  // Toggle password visibility
   const toggle = () => {
     setOpen(!open);
   };
 
   // Handler function for form submission
-  const handleSubmit = async (values: any, { setSubmitting }: any) => {
+  const handleSubmit = async (values: { email: string; password: string }, { setSubmitting }: any) => {
     try {
       setIsLoading(true);
+       // console.log(values)
+      // Call the LoginUser function with the form values
+      const response = await LoginUser(values);
+      
 
-      const response = await Login(values);
-
+      // Show success message
       toast.success(response.message);
 
+      // Redirect to dashboard
       router.push("/dashboard");
     } catch (error: any) {
+      // Handle errors
       setIsLoading(false);
-
-      toast.error(error?.response.data?.message);
+      toast.error(error?.response?.data?.message || "Login failed");
     }
     setIsLoading(false);
     setSubmitting(false);
@@ -114,7 +117,7 @@ const UserLogin: React.FC = () => {
                   </label>
                   <div className="relative">
                     <Field
-                      type={open === false ? "password" : "text"}
+                      type={open ? "text" : "password"}
                       id="password"
                       name="password"
                       placeholder="Enter password"
@@ -125,10 +128,10 @@ const UserLogin: React.FC = () => {
                       }`}
                     />
                     <div className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-[#828282]">
-                      {open === false ? (
-                        <Eye onClick={toggle} width={20} height={20} />
-                      ) : (
+                      {open ? (
                         <EyeOff onClick={toggle} width={20} height={20} />
+                      ) : (
+                        <Eye onClick={toggle} width={20} height={20} />
                       )}
                     </div>
                   </div>
@@ -143,7 +146,7 @@ const UserLogin: React.FC = () => {
                 <button
                   type="submit"
                   className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isLoading}
                 >
                   {isLoading ? "Loading..." : "Sign in"}
                 </button>
