@@ -22,10 +22,7 @@ const UserLogin: React.FC = () => {
   const handleSubmit = async (values: { email: string; password: string }, { setSubmitting }: any) => {
     try {
       setIsLoading(true);
-       // console.log(values)
-      // Call the LoginUser function with the form values
       const response = await LoginUser(values);
-      
 
       // Show success message
       toast.success(response.message);
@@ -33,7 +30,6 @@ const UserLogin: React.FC = () => {
       // Redirect to dashboard
       router.push("/dashboard");
     } catch (error: any) {
-      // Handle errors
       setIsLoading(false);
       toast.error(error?.response?.data?.message || "Login failed");
     }
@@ -94,6 +90,7 @@ const UserLogin: React.FC = () => {
                     id="email"
                     name="email"
                     placeholder="Ex. jane@example.com"
+                    required
                     className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
                       errors.email && touched.email
                         ? "border-red-500"
@@ -121,6 +118,7 @@ const UserLogin: React.FC = () => {
                       id="password"
                       name="password"
                       placeholder="Enter password"
+                      required
                       className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
                         errors.password && touched.password
                           ? "border-red-500"
