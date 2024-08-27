@@ -40,9 +40,9 @@ const Navbar = () => {
 
           {/* Dashboard Login Button */}
           <div>
-          <Link href="/register" legacyBehavior>
+          <Link href="auth/register" legacyBehavior>
               <a className="mt-4 lg:mt-0 bg-[#122E5D] text-white px-4 py-2 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 transition-colors duration-300">
-                Dashboard Login
+                Register
               </a>
             </Link>
           </div>
