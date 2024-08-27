@@ -30,7 +30,7 @@ const DashboardSidebar = () => {
   const router = useRouter();
 
   return (
-    <aside className="bg-primary font-poppins  w-[344px] text-white p-4 sticky z-30 top-0 h-screen">
+    <aside className="bg-primary w-[344px] text-white p-4 sticky z-30 top-0 h-screen">
       <div className="flex items-center flex-col gap-2 mb-20">
         <img src="/assets/dashLogo.svg" alt="logo" />
         <p className="text-white text-center text-xl">Eco Media Player</p>
@@ -39,7 +39,11 @@ const DashboardSidebar = () => {
         {DashboardLinks.map((link) => {
           const isCurrentPath = router.pathname === link.url;
           return (
-            <Link className="flex p-2 py-[12px] pl-4 rounded-lg items-center" href={link.url}>
+            <Link
+              key={link.url}
+              className="flex p-2 py-[12px] pl-4 rounded-lg items-center"
+              href={link.url}
+            >
               <ParentLinkComponent link={link} isActive={isCurrentPath} />
             </Link>
           );

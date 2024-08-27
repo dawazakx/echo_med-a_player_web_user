@@ -6,7 +6,7 @@ import { inter } from "@/pages/_app";
 const Layout = ({ children, className }: { children: ReactNode; className?: string }) => {
   return (
     <div className="flex bg-white flex-auto flex-col">
-      <div className="flex gap-10  flex-auto min-w-0">
+      <div className="flex gap-20  flex-auto min-w-0">
       <DashboardSidebar />
 
       <div className="flex mb-12 flex-col flex-auto overflow-y-auto min-h-screen min-w-0 relative w-full ">

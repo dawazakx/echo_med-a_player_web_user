@@ -30,6 +30,6 @@ export const DashboardLinks: IDashboardLink[] = [
   {
     icon: User,
     title: "Profiles",
-    url: "/dashboard/profiles",
+    url: "/dashboard/profile",
   },
 ];

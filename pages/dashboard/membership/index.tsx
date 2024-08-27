@@ -1,4 +1,4 @@
-import Layout from "@/components/dashboard-layout/Layout";
+import Layout from "@/components/dashboard/dashboard-layout/Layout";
 import { NextPageWithLayout } from "@/pages/_app";
 import { ReactElement } from "react";
 

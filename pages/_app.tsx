@@ -6,7 +6,7 @@ import StoreProvider from "@/redux/provider";
 import { Inter } from "next/font/google";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
-import Layout from "@/components/dashboard-layout/Layout";
+import Layout from "@/components/dashboard/dashboard-layout/Layout";
 
 export const inter = Inter({ subsets: ["latin"] });
 export const nunito = Inter({ subsets: ["latin"], variable: "--font-nunito" });
