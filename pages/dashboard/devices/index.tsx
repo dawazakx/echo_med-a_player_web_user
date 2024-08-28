@@ -14,7 +14,8 @@ const Page: NextPageWithLayout = () => {
         <p className="text-primary text-lg">Account access</p>
         <div className="flex flex-col gap-3 border border-[#CBD5E1] rounded-lg py-6 w-[806px]">
           <div className="flex items-center gap-6 pl-5">
-            <img src="/assets/devices-icon.svg" alt="devices-icon" className="w-6 h-6"/>
+            {/* Using the devices.svg icon */}
+            <img src="/icons/devices.svg" alt="access-and-devices-icon" className="w-6 h-6"/>
             <div className="flex flex-col flex-grow">
               <p className="text-[#041635] font-semibold text-xl">Access and devices</p>
               <p className="text-primary text-lg">Manage signed-in devices</p>
@@ -29,7 +30,8 @@ const Page: NextPageWithLayout = () => {
         <p className="text-primary text-lg">Mobile download</p>
         <div className="flex flex-col gap-3 border border-[#CBD5E1] rounded-lg py-6 w-[806px]">
           <div className="flex items-center gap-6 pl-5">
-            <img src="/assets/mobile-download-icon.svg" alt="mobile-download-icon" className="w-6 h-6"/>
+            {/* Using the download.svg icon */}
+            <img src="/icons/download.svg" alt="mobile-download-icon" className="w-6 h-6"/>
             <div className="flex flex-col flex-grow">
               <p className="text-[#041635] font-semibold text-xl">Mobile Download devices</p>
               <p className="text-primary text-lg">Using 4 of 6 download devices</p>
