@@ -67,90 +67,92 @@ const UserLogin: React.FC = () => {
           </div>
 
           {/* Formik form for login */}
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={loginValidationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ errors, touched, isSubmitting }) => (
-              <Form className="space-y-4">
-                {/* Email Address Input */}
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Ex. jane@example.com"
-                    required
-                    className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
-                      errors.email && touched.email
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="text-red-500 text-sm mt-1"
-                  />
-                </div>
-
-                {/* Password Input */}
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Password
-                  </label>
-                  <div className="relative">
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <Formik
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              validationSchema={loginValidationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ errors, touched, isSubmitting }) => (
+                <Form className="space-y-4">
+                  {/* Email Address Input */}
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Email address
+                    </label>
                     <Field
-                      type={open ? "text" : "password"}
-                      id="password"
-                      name="password"
-                      placeholder="Enter password"
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Ex. jane@example.com"
                       required
                       className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
-                        errors.password && touched.password
+                        errors.email && touched.email
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
                     />
-                    <div className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-[#828282]">
-                      {open ? (
-                        <EyeOff onClick={toggle} width={20} height={20} />
-                      ) : (
-                        <Eye onClick={toggle} width={20} height={20} />
-                      )}
-                    </div>
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
                   </div>
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className="text-red-500 text-sm mt-1"
-                  />
-                </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                  disabled={isSubmitting || isLoading}
-                >
-                  {isLoading ? "Loading..." : "Sign in"}
-                </button>
-              </Form>
-            )}
-          </Formik>
+                  {/* Password Input */}
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Password
+                    </label>
+                    <div className="relative">
+                      <Field
+                        type={open ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                        className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
+                          errors.password && touched.password
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                      />
+                      <div className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-[#828282]">
+                        {open ? (
+                          <EyeOff onClick={toggle} width={20} height={20} />
+                        ) : (
+                          <Eye onClick={toggle} width={20} height={20} />
+                        )}
+                      </div>
+                    </div>
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-red-500 text-sm mt-1"
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                    disabled={isSubmitting || isLoading}
+                  >
+                    {isLoading ? "Loading..." : "Sign in"}
+                  </button>
+                </Form>
+              )}
+            </Formik>
+          </div>
 
           {/* Additional Links */}
           <div className="mt-4 text-center">
