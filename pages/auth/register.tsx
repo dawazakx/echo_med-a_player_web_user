@@ -6,6 +6,7 @@ import { signupValidationSchema } from "@/utils/yup.validation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { AiOutlineGoogle } from "react-icons/ai"; // Import Google icon
 
 const UserRegister: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ const UserRegister: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col lg:flex-row w-full overflow-hidden">
         {/* Left side - Register form */}
-        <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 p-8 md:px-20 flex flex-col justify-center">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
             Create a new account
           </h2>
@@ -49,15 +50,12 @@ const UserRegister: React.FC = () => {
             Provide your details to create an account.
           </p>
 
-          {/* Google Sign-in Button */}
-          <button className="w-full flex items-center justify-center bg-gray-100 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-200 transition-colors duration-300">
-            <img
-              src="/assets/google-logo.png"
-              alt="Google Icon"
-              className="w-6 h-4 mr-2"
-            />
-            Continue with Google
-          </button>
+        {/* Google Sign-in Button */}
+<button className="w-full flex items-center justify-center bg-gray-100 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-200 transition-colors duration-300">
+  <AiOutlineGoogle className="w-6 h-6 mr-2" />
+  Continue with Google
+</button>
+
 
           {/* Divider with 'or' text */}
           <div className="flex items-center justify-between mb-4">
@@ -67,7 +65,7 @@ const UserRegister: React.FC = () => {
           </div>
 
           {/* Formik form for register */}
-          <div className="p-6 bg-white rounded-lg shadow-md">
+          
             <Formik
               initialValues={{
                 firstName: "",
@@ -245,7 +243,7 @@ const UserRegister: React.FC = () => {
                 </Form>
               )}
             </Formik>
-          </div>
+         
 
           {/* Additional Links */}
           <div className="mt-4 text-center">

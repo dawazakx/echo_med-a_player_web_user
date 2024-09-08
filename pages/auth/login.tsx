@@ -6,6 +6,7 @@ import { loginValidationSchema } from "@/utils/yup.validation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { AiOutlineGoogle } from "react-icons/ai"; // Import Google icon
 
 const UserLogin: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ const UserLogin: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col lg:flex-row w-full overflow-hidden">
         {/* Left side - login form */}
-        <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 p-8 md:px-20 flex flex-col justify-center">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
             Sign in to your account
           </h2>
@@ -51,11 +52,7 @@ const UserLogin: React.FC = () => {
 
           {/* Google Sign-in Button */}
           <button className="w-full flex items-center justify-center bg-gray-100 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-200 transition-colors duration-300">
-            <img
-              src="/assets/google-logo.png"
-              alt="Google Icon"
-              className="w-6 h-4 mr-2"
-            />
+            <AiOutlineGoogle className="w-6 h-6 mr-2" /> {/* Google icon */}
             Continue with Google
           </button>
 
@@ -67,92 +64,90 @@ const UserLogin: React.FC = () => {
           </div>
 
           {/* Formik form for login */}
-          <div className="p-6 bg-white rounded-lg shadow-md">
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-              }}
-              validationSchema={loginValidationSchema}
-              onSubmit={handleSubmit}
-            >
-              {({ errors, touched, isSubmitting }) => (
-                <Form className="space-y-4">
-                  {/* Email Address Input */}
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email address
-                    </label>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validationSchema={loginValidationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched, isSubmitting }) => (
+              <Form className="space-y-4">
+                {/* Email Address Input */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Email address
+                  </label>
+                  <Field
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Ex. jane@example.com"
+                    required
+                    className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
+                      errors.email && touched.email
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+
+                {/* Password Input */}
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <div className="relative">
                     <Field
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="Ex. jane@example.com"
+                      type={open ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      placeholder="Enter password"
                       required
                       className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
-                        errors.email && touched.email
+                        errors.password && touched.password
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
                     />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-red-500 text-sm mt-1"
-                    />
-                  </div>
-
-                  {/* Password Input */}
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Password
-                    </label>
-                    <div className="relative">
-                      <Field
-                        type={open ? "text" : "password"}
-                        id="password"
-                        name="password"
-                        placeholder="Enter password"
-                        required
-                        className={`mt-1 block w-full text-gray-700 border rounded-lg py-2 px-3 shadow-sm focus:outline-none ${
-                          errors.password && touched.password
-                            ? "border-red-500"
-                            : "border-gray-300"
-                        }`}
-                      />
-                      <div className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-[#828282]">
-                        {open ? (
-                          <EyeOff onClick={toggle} width={20} height={20} />
-                        ) : (
-                          <Eye onClick={toggle} width={20} height={20} />
-                        )}
-                      </div>
+                    <div className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-[#828282]">
+                      {open ? (
+                        <EyeOff onClick={toggle} width={20} height={20} />
+                      ) : (
+                        <Eye onClick={toggle} width={20} height={20} />
+                      )}
                     </div>
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-red-500 text-sm mt-1"
-                    />
                   </div>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                    disabled={isSubmitting || isLoading}
-                  >
-                    {isLoading ? "Loading..." : "Sign in"}
-                  </button>
-                </Form>
-              )}
-            </Formik>
-          </div>
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full bg-[#0E214F] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                  disabled={isSubmitting || isLoading}
+                >
+                  {isLoading ? "Loading..." : "Sign in"}
+                </button>
+              </Form>
+            )}
+          </Formik>
 
           {/* Additional Links */}
           <div className="mt-4 text-center">
