@@ -6,6 +6,7 @@ import { loginValidationSchema } from "@/utils/yup.validation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { AiOutlineGoogle } from "react-icons/ai"; // Import Google icon
 
 const UserLogin: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ const UserLogin: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col lg:flex-row w-full overflow-hidden">
         {/* Left side - login form */}
-        <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 p-8 md:px-20 flex flex-col justify-center">
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
             Sign in to your account
           </h2>
@@ -51,11 +52,7 @@ const UserLogin: React.FC = () => {
 
           {/* Google Sign-in Button */}
           <button className="w-full flex items-center justify-center bg-gray-100 text-gray-700 py-2 px-4 rounded-lg mb-4 hover:bg-gray-200 transition-colors duration-300">
-            <img
-              src="/assets/google-logo.png"
-              alt="Google Icon"
-              className="w-6 h-4 mr-2"
-            />
+            <AiOutlineGoogle className="w-6 h-6 mr-2" /> {/* Google icon */}
             Continue with Google
           </button>
 
